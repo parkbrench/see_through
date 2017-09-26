@@ -8,7 +8,12 @@
     .background {
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(to left, rgba(0,73,122,0.6) 26.48%, rgba(0,51,102,0.6) 73.52%);
+      background-image: linear-gradient(349deg, rgba(48, 152, 9, 0.6) 37.80498401530339%, rgba(191, 22, 26, 0.6) 85.20900812788317%)
+      /* ALTERNATIVE PRETTY STARTER BACKGROUNDS: */
+      /*linear-gradient(157deg, rgba(135, 238, 196, 0.6) 37.08542891676914%, rgba(69, 71, 239, 0.6) 69.46613732752702%)*/
+      /*linear-gradient(178deg, rgba(173, 214, 97, 0.6) 94.31232655195944%, rgba(96, 100, 53, 0.6) 48.514619286303514%)*/
+      /*linear-gradient(241deg, rgba(202, 83, 6, 0.6) 47.32171070830067%, rgba(54, 32, 221, 0.6) 70.71321004865115%)*/
+      /*linear-gradient(61deg, rgba(67, 10, 169, 0.6) 28.433212630937653%, rgba(103, 221, 227, 0.6) 40.169859195366755%)*/
     }
     .note {
       color: white;
@@ -19,7 +24,6 @@
       padding-right: 30px;
     }
   </style>
-  <!-- TODO: add JS to randomly adapt the rgba() values on click anywhere on the div -->
   <!-- TODO: (maybe) add a function to randomly include a see-through image once in a while -->
 </head>
 <body>
@@ -55,17 +59,27 @@
     *
     * @return {str} a RGB value as a string
     */
-    function getRandomRGB() {
+    function getRandomRGBA() {
+      var opacity = 0.6; // define differently if more translucency is desired
       var r = getRandomInt(0, 255);
       var g = getRandomInt(0, 255);
       var b = getRandomInt(0, 255);
-      var rgb = "(" + r + ", " + g + ", " + b + ")";
-      console.log(rgb);
-      return rgb;
+      var rgba = "rgba(" + r + ", " + g + ", " + b + ", " + opacity + ")";
+      return rgba;
     }
 
-    var el = document.getElementById('the-all-button')
-    el.addEventListener('click', getRandomRGB, false);
+    var el = document.getElementById('the-all-button');
+    el.addEventListener('click', function() {
+      var colorOne = getRandomRGBA();
+      var colorTwo = getRandomRGBA();
+      var perecentageOne = getRandom(0, 100);
+      var perecentageTwo = getRandom(0, 100);
+      var angle = getRandomInt(0, 360);
+      seeThroughDesktopImage = 'linear-gradient('
+      + angle + 'deg, ' + colorOne + ' ' + perecentageOne + '%, ' + colorTwo + ' ' + perecentageTwo + '%)';
+      // console.log(seeThroughDesktopImage);
+      this.style.backgroundImage = seeThroughDesktopImage;
+    }, false);
   </script>
 </body>
 </html>
