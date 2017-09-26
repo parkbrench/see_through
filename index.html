@@ -23,8 +23,49 @@
   <!-- TODO: (maybe) add a function to randomly include a see-through image once in a while -->
 </head>
 <body>
-  <div class="background">
+  <div id="the-all-button" class="background">
     <p class="note">you see through mee</p>
   </div>
+  <script>
+    // thanks: https://gist.github.com/kerimdzhanov/7529623
+    /**
+    * Get a random floating point number between `min` and `max`.
+    *
+    * @param {number} min - min number
+    * @param {number} max - max number
+    * @return {float} a random floating point number
+    */
+    function getRandom(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    /**
+    * Get a random integer between `min` and `max`.
+    *
+    * @param {number} min - min number
+    * @param {number} max - max number
+    * @return {int} a random integer
+    */
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    /**
+    * Get a random RGB value.
+    *
+    * @return {str} a RGB value as a string
+    */
+    function getRandomRGB() {
+      var r = getRandomInt(0, 255);
+      var g = getRandomInt(0, 255);
+      var b = getRandomInt(0, 255);
+      var rgb = "(" + r.toString() + ", " + g.toString() + ", " + b.toString() + ")";
+      console.log(rgb);
+      return rgb;
+    }
+
+    var el = document.getElementById('the-all-button')
+    el.addEventListener('click', getRandomRGB, false);
+  </script>
 </body>
 </html>
