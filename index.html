@@ -6,27 +6,20 @@
   <title>seethrough</title>
   <style>
     body {
-      background-image: url("post.png");
+      background-image: url("post.png"); /* thanks: https://twitter.com/spacerezt/status/903047646549561344 */
       background-position: center;
       background-repeat: no-repeat;
     }
     .background {
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(349deg, rgba(48, 152, 9, 0.6) 37.80498401530339%, rgba(191, 22, 26, 0.6) 85.20900812788317%)
-      /* ALTERNATIVE PRETTY STARTER BACKGROUNDS: */
-      /*linear-gradient(157deg, rgba(135, 238, 196, 0.6) 37.08542891676914%, rgba(69, 71, 239, 0.6) 69.46613732752702%)*/
-      /*linear-gradient(178deg, rgba(173, 214, 97, 0.6) 94.31232655195944%, rgba(96, 100, 53, 0.6) 48.514619286303514%)*/
-      /*linear-gradient(241deg, rgba(202, 83, 6, 0.6) 47.32171070830067%, rgba(54, 32, 221, 0.6) 70.71321004865115%)*/
-      /*linear-gradient(61deg, rgba(67, 10, 169, 0.6) 28.433212630937653%, rgba(103, 221, 227, 0.6) 40.169859195366755%)*/
-    }
-    .note {
-      color: white;
-      opacity: 0.09;
-      text-align: center;
-      position: relative;
-      float: right;
-      padding-right: 30px;
+      background-image: linear-gradient(210deg, rgba(167, 183, 28, 0.6) 35.4716%, rgba(33, 238, 183, 0.6) 74.4566%);
+      /* OTHER PRETTY STARTER BACKGROUNDS: */
+      /*linear-gradient(332deg, rgba(53, 211, 59, 0.6) 25.8036%, rgba(1, 127, 230, 0.6) 95.5505%);*/
+      /*linear-gradient(157deg, rgba(135, 238, 196, 0.6) 37.0854%, rgba(69, 71, 239, 0.6) 69.4661%)*/
+      /*linear-gradient(178deg, rgba(173, 214, 97, 0.6) 94.3123%, rgba(96, 100, 53, 0.6) 48.51461%)*/
+      /*linear-gradient(241deg, rgba(202, 83, 6, 0.6) 47.3217%, rgba(54, 32, 221, 0.6) 70.7132%)*/
+      /*linear-gradient(61deg, rgba(67, 10, 169, 0.6) 28.43321%, rgba(103, 221, 227, 0.6) 40.16985%)*/
     }
   </style>
   <!-- TODO: (maybe) add a function to randomly include a see-through image once in a while -->
@@ -45,7 +38,6 @@
     function getRandom(min, max) {
       return Math.random() * (max - min) + min;
     }
-
     /**
     * Get a random integer between `min` and `max`.
     *
@@ -56,11 +48,10 @@
     function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
     /**
-    * Get a random RGB value.
+    * Get a random RGBA value.
     *
-    * @return {str} a RGB value as a string
+    * @return {str} a RGBA value as a string
     */
     function getRandomRGBA() {
       var opacity = 0.6; // define differently if more translucency is desired
@@ -78,9 +69,11 @@
       var perecentageOne = getRandom(0, 100);
       var perecentageTwo = getRandom(0, 100);
       var angle = getRandomInt(0, 360);
-      seeThroughDesktopImage = 'linear-gradient('
+      seeThroughDesktopBackground = 'linear-gradient('
       + angle + 'deg, ' + colorOne + ' ' + perecentageOne + '%, ' + colorTwo + ' ' + perecentageTwo + '%)';
-      // console.log(seeThroughDesktopImage);
+      // console.log(seeThroughDesktopBackground);
+      // TODO: (maybe) add a button so people can copy the current bg values.
+      //       (because some are really nice-looking!)
       this.style.backgroundImage = seeThroughDesktopImage;
     }, false);
   </script>
