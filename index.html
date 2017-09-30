@@ -11,26 +11,51 @@
       }
     }
     body {
-      background-image: url("post.png"); /* thanks: https://twitter.com/spacerezt/status/903047646549561344 */
       background-position: center;
       background-repeat: no-repeat;
     }
     .background {
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(210deg, rgba(167, 183, 28, 0.6) 35.4716%, rgba(33, 238, 183, 0.6) 74.4566%);
-      /* OTHER PRETTY STARTER BACKGROUNDS: */
-      /*linear-gradient(332deg, rgba(53, 211, 59, 0.6) 25.8036%, rgba(1, 127, 230, 0.6) 95.5505%);*/
-      /*linear-gradient(157deg, rgba(135, 238, 196, 0.6) 37.0854%, rgba(69, 71, 239, 0.6) 69.4661%)*/
-      /*linear-gradient(178deg, rgba(173, 214, 97, 0.6) 94.3123%, rgba(96, 100, 53, 0.6) 48.51461%)*/
-      /*linear-gradient(241deg, rgba(202, 83, 6, 0.6) 47.3217%, rgba(54, 32, 221, 0.6) 70.7132%)*/
-      /*linear-gradient(61deg, rgba(67, 10, 169, 0.6) 28.43321%, rgba(103, 221, 227, 0.6) 40.16985%)*/
-    }
+      width: 97%;
+      height: 97%;
+			z-index: 1;
+			display: inline-block;
+			position: fixed;
+			box-shadow: 2px 2px 1px #888;
+   	}
+		#container {
+			display: block;
+			height: 100%;
+			width: 100%;
+			z-index: 1;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+    #the-all-button {
+			z-index:10;
+			height: 100%;
+			width: 100%;
+			display: inline-block;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
   </style>
-  <!-- TODO: (maybe) add a function to randomly include a see-through image once in a while -->
 </head>
 <body>
   <div id="the-all-button" class="background"></div>
+	<div id="container">
+		<div id="div-1"></div>
+		<!--div id="div-1" class="background">hey</div>
+		<div id="div-2" class="background">hi</div>
+		<div id="div-3" class="background">what</div>
+		<div id="div-4" class="background">why</div>
+		<div id="div-5" class="background">you</div>
+		<div id="div-6" class="background">are</div>
+		<div id="div-7" class="background">won</div>
+		<div id="div-8" class="background">der</div>
+		<div id="div-9" class="background">ful</div-->
+	</div>													
   <script>
     // thanks: https://gist.github.com/kerimdzhanov/7529623
     /**
@@ -59,7 +84,7 @@
     * @return {str} a RGBA value as a string
     */
     function getRandomRGBA() {
-      var opacity = 0.6; // define differently if more translucency is desired
+      var opacity = chosenOpacity; // define differently if more translucency is desired
       var r = getRandomInt(0, 255);
       var g = getRandomInt(0, 255);
       var b = getRandomInt(0, 255);
@@ -67,20 +92,95 @@
       return rgba;
     }
 
-    var el = document.getElementById('the-all-button');
-    el.addEventListener('click', function() {
-      var colorOne = getRandomRGBA();
-      var colorTwo = getRandomRGBA();
-      var perecentageOne = getRandom(0, 100);
-      var perecentageTwo = getRandom(0, 100);
-      var angle = getRandomInt(0, 360);
-      seeThroughDesktopBackground = 'linear-gradient('
-      + angle + 'deg, ' + colorOne + ' ' + perecentageOne + '%, ' + colorTwo + ' ' + perecentageTwo + '%)';
-      // console.log(seeThroughDesktopBackground);
-      // TODO: (maybe) add a button so people can copy the current bg values.
-      //       (because some are really nice-looking!)
-      this.style.backgroundImage = seeThroughDesktopBackground;
-    }, false);
+				
+			function cycleDivs() {
+					frontDiv = divAry[0];
+					var firstDiv = document.getElementById(frontDiv);
+					var lastDiv = document.getElementById(divAry[depth]);
+          divAry.push(divAry.shift());
+					container.parentNode.insertBefore(firstDiv, container.nextSibling);
+      		var colorOne = getRandomRGBA();
+      		var colorTwo = getRandomRGBA();
+      		var perecentageOne = getRandom(0, 100);
+      		var perecentageTwo = getRandom(0, 100);
+      		var angle = getRandomInt(0, 360);
+      		seeThroughDesktopBackground = 'linear-gradient('
+      		+ angle + 'deg, ' + colorOne + ' ' + perecentageOne + '%, ' + colorTwo + ' ' + perecentageTwo + '%)';
+      		// TODO: (maybe) add a button so people can copy the current bg values.
+      		//       (because some are really nice-looking!)
+					for (var i=0; i<=depth; i++){
+						var currentDiv = document.getElementById(divAry[i]);
+						var width = 100.0 - (i * 100 / depth);
+						var height = 100.0 - (i * 100 / depth);
+						var margin = 100.0 - width; 
+						currentDiv.style.zIndex = (-1) * i;
+						currentDiv.style.width = width + 'vw'; 
+						currentDiv.style.height = height + 'vh';
+						currentDiv.style.margin = margin + 'px';
+					}
+
+					/**
+					* Checks whether we should add an image
+					* (only if there isn't currently an image in rotation)
+					* TODO: what images? 
+					*				Perhaps inspired by users cache so they see familiar images
+					*				would that be unethical?
+					*/
+					var addImage = getRandomInt(0,100);
+					var alreadyHaveImage = document.getElementById("find-me");
+					if (addImage < 7 && !alreadyHaveImage) {
+						var img = document.createElement("img");
+						img.setAttribute("src", "post.png");
+						img.setAttribute("width", "50%");
+						img.setAttribute("height", "auto");
+						img.setAttribute("id", "find-me");
+						img.style.opacity = chosenOpacity * 2;
+      			lastDiv.appendChild(img); 
+					} else {
+      			lastDiv.style.backgroundImage = seeThroughDesktopBackground;
+					};
+				}
+      
+     /**
+		 * Here we can:
+		 * 	- set how opaque each div will be (images will double the opacity)
+		 * 	- set how many divs there will be via "depth"
+ 		 *  
+		 */
+			var chosenOpacity = 0.2;	
+			var depth = 40;
+
+
+		  /**
+		  * Makes the divs for initial setup
+		  */
+			var divAry = new Array(depth + 1);
+			for (var i=0; i <= depth;i++) {
+				divAry[i] = 'div-' + (i + 1);
+			}
+			
+			var el = document.getElementById("the-all-button");
+			var container = document.getElementById("container");
+			for (var i = 0; i <= depth; i++) {
+					var newEl = document.createElement("div");
+					newEl.setAttribute("id", "div-" + (i + 1));
+					newEl.setAttribute("class", "background");
+					container.appendChild(newEl);
+			}
+		
+			/**
+			* Gives style etc to the initial divs
+			*/	
+			for (var i = 0; i <= depth; i++){
+					cycleDivs();
+			}	
+
+			/**
+			* Cycle thru divs on user click
+			*/
+			el.addEventListener('click', function() {
+					cycleDivs();
+			}, false);
   </script>
 </body>
 </html>
