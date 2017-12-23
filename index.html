@@ -121,8 +121,12 @@
             firstDiv.removeChild(firstDiv.firstChild);
           }
           if (addImage < 7 && !alreadyHaveImage) {
+            //randomly pick an image from data.txt
+            var imgNum = getRandomInt(0, imgArray.length - 1);
+            console.log(imgArray.length);
+            console.log(imgNum);
             var img = document.createElement("img");
-            img.setAttribute("src", "post.png");
+            img.setAttribute("src", imgArray[imgNum]);
             img.setAttribute("width", "50%");
             img.setAttribute("height", "auto");
             img.setAttribute("id", "find-me");
@@ -147,7 +151,27 @@
       /**
       * Makes the divs for initial setup
       */
+
+      // thanks for code on converting txt file to js array: https://www.codingforums.com/javascript-programming/270314-javascript-code-read-text-file-array.html#post_1260248
+
+    /*probably needs updating though because of firefox console error: 
+
+    Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user’s experience. For more help http://xhr.spec.whatwg.org/
+    index.html:160:6
+    XML Parsing Error: not well-formed
+    Location: file:///Users/sadieparker/git_st/see_through/see_through/data.txt
+    Line Number 1, Column 7:
+    */
+
+      var reader = (window.XMLHttpRequest != null ) 
+               ? new XMLHttpRequest() 
+               : new ActiveXObject("Microsoft.XMLHTTP");
+      reader.open("GET", './data.txt', false );
+      reader.send( );
+      var imgArray = reader.responseText.split(/\r\n|\n|\r/);
+      console.log(imgArray);
       var divAry = new Array(depth + 1);
+      console.log(divAry[0]);
       for (var i=0; i <= depth;i++) {
         divAry[i] = 'div-' + (i + 1);
       }
